@@ -2,7 +2,7 @@ import type { ITaskItem } from "@/types/task";
 
 class TaskService {
   async getTasksList(): Promise<ITaskItem[]> {
-    const res = await fetch("/db/tasks.json", {
+    const res = await fetch("db/tasks.json", {
       method: "get",
     });
 
