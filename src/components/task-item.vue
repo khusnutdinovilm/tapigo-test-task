@@ -27,6 +27,7 @@ const { toggleTaskItem } = useTaskStore();
 
 <style>
 .task-item--checked .base-checkbox__label {
+  color: var(--secondary-font-color);
   text-decoration: line-through;
 }
 </style>
