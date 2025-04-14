@@ -13,7 +13,7 @@ class TaskService {
   }
 
   async getTasksList(): Promise<ITaskItem[]> {
-    if (this.tasks) {
+    if (this.tasks.length) {
       return this.tasks;
     } else {
       const res = await fetch("db/tasks.json", {
