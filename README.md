@@ -1,33 +1,64 @@
-# tapigo-test-task
+# 🧪 Tapigo Test Task
 
-This template should help get you started developing with Vue 3 in Vite.
+Небольшое SPA-приложение на **Vue 3 + Pinia**, которое позволяет загружать и управлять списком задач.
 
-## Recommended IDE Setup
+## 📌 Функциональность
 
-[VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+- ✅ Загрузка задач из `tasks.json` при первом запуске
+- ✅ Отметка задач как выполненных с помощью чекбоксов
+- ✅ Сохранение состояния задач в `localStorage` (сохраняется после перезагрузки страницы)
 
-## Type Support for `.vue` Imports in TS
+## 📁 Структура задач
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+Пример файла `tasks.json`:
 
-## Customize configuration
-
-See [Vite Configuration Reference](https://vite.dev/config/).
-
-## Project Setup
-
-```sh
-npm install
+```json
+[
+  { "id": 1, "title": "Задача 1", "done": false },
+  { "id": 2, "title": "Задача 2", "done": false },
+  { "id": 3, "title": "Задача 3", "done": false },
+  { "id": 4, "title": "Задача 4", "done": false },
+  { "id": 5, "title": "Задача 5", "done": false }
+]
 ```
 
-### Compile and Hot-Reload for Development
+## 🚀 Технологии
+
+- Vue 3
+- Pinia
+- Vite
+- TypeScript
+- Prettier
+
+## 🛠️ Установка и запуск
 
 ```sh
+# 1. Установите зависимости
+npm install
+
+# 2. Запустите локальный сервер разработки
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+Для сборки проекта:
 
 ```sh
 npm run build
 ```
+
+Для проверки типов:
+
+```sh
+npm run type-check
+```
+
+Для форматирования кода:
+
+```sh
+npm run format
+```
+
+## 📝 Требования
+
+- Node.js v18+ рекомендуется
+- JSON-файл tasks.json должен находиться в папке public/db/
