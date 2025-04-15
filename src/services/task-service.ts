@@ -1,46 +1,53 @@
-import type { ITaskItem } from "@/types/task";
+import type { ITaskItem } from "@/types";
+
+type MarkedTask = {
+  [key: number]: number[];
+};
 
 class TaskService {
-  private tasks: ITaskItem[];
+  private markedTasks: MarkedTask;
 
   constructor() {
-    const lsTasks = localStorage.getItem("tasks");
-    this.tasks = lsTasks ? JSON.parse(lsTasks) : [];
+    const markedTasksLS = localStorage.getItem("marked-tasks");
+    this.markedTasks = markedTasksLS ? JSON.parse(markedTasksLS) : {};
   }
 
-  private saveTasksInLocalStorage() {
-    localStorage.setItem("tasks", JSON.stringify(this.tasks));
+  private saveMarkedTasksInLS() {
+    localStorage.setItem("marked-tasks", JSON.stringify(this.markedTasks));
   }
 
-  async getTasksList(): Promise<ITaskItem[]> {
-    if (this.tasks.length) {
-      return this.tasks;
+  async getTaskByNoteId(noteId: number): Promise<ITaskItem[]> {
+    const res = await fetch(`db/tasks/${noteId}.json`, { method: "get" });
+
+    if (!res.ok) {
+      throw new Error(`HTTP error! status: ${res.status}`);
+    }
+
+    const tasks = (await res.json()) as ITaskItem[];
+
+    if (noteId in this.markedTasks) {
+      return tasks.map(t => ({
+        ...t,
+        done: this.markedTasks[noteId].includes(t.id),
+      }));
+    }
+
+    this.markedTasks[noteId] = tasks.filter(t => t.done).map(t => t.id);
+    this.saveMarkedTasksInLS();
+
+    return tasks;
+  }
+
+  async toggleTask(noteId: number, taskId: number) {
+    const markedIdx = this.markedTasks[noteId].findIndex(m => m === taskId);
+
+    if (markedIdx === -1) {
+      this.markedTasks[noteId].push(taskId);
     } else {
-      const res = await fetch("db/tasks.json", {
-        method: "get",
-      });
-
-      if (!res.ok) {
-        throw new Error(`HTTP error! status: ${res.status}`);
-      }
-
-      this.tasks = await res.json();
-      this.saveTasksInLocalStorage();
-
-      return this.tasks;
-    }
-  }
-
-  async updateTaskItem(taskId: number): Promise<ITaskItem> {
-    const idx = this.tasks.findIndex(task => task.id === taskId);
-    if (idx === -1) {
-      throw new Error(`Задача с id=${taskId} не найдена`);
+      this.markedTasks[noteId].splice(markedIdx, 1);
     }
 
-    this.tasks[idx].done = !this.tasks[idx].done;
-    this.saveTasksInLocalStorage();
-
-    return this.tasks[idx];
+    this.saveMarkedTasksInLS();
   }
 }
 
