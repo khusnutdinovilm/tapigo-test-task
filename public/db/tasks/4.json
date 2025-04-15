@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "Купить билеты", "done": true, "noteId": 4 },
+  { "id": 2, "title": "Собрать чемодан", "done": false, "noteId": 4 },
+  { "id": 3, "title": "Сделать страховку", "done": false, "noteId": 4 },
+  { "id": 4, "title": "Распечатать брони", "done": true, "noteId": 4 }
+]

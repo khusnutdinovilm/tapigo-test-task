@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "Выучить тему по TypeScript", "done": false, "noteId": 3 },
+  { "id": 2, "title": "Решить задачи с leetcode", "done": false, "noteId": 3 },
+  { "id": 3, "title": "Написать часть диплома", "done": true, "noteId": 3 },
+  { "id": 4, "title": "Сделать черновик презентации", "done": false, "noteId": 3 }
+]

@@ -1,0 +1,5 @@
+[
+  { "id": 1, "title": "Сходить за продуктами", "done": true, "noteId": 2 },
+  { "id": 2, "title": "Постирать вещи", "done": false, "noteId": 2 },
+  { "id": 3, "title": "Прибраться в комнате", "done": false, "noteId": 2 }
+]

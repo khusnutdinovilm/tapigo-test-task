@@ -1,0 +1,6 @@
+[
+  { "id": 1, "title": "Подготовить отчёт", "done": false, "noteId": 1 },
+  { "id": 2, "title": "Ответить на письма", "done": true, "noteId": 1 },
+  { "id": 3, "title": "Созвон с менеджером", "done": false, "noteId": 1 },
+  { "id": 4, "title": "Проверить pull requests", "done": true, "noteId": 1 }
+]
