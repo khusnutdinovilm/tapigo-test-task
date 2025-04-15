@@ -1,28 +1,30 @@
 <template>
-  <div class="task-item" :class="{ 'task-item--checked': taskItem.done }">
-    <ui-checkbox
-      :label="taskItem.title"
-      :id="taskItem.id"
-      v-model="taskItem.done"
-      @update:model-value="() => toggleTaskItem(taskItem.id)"
+  <div class="task-item" :class="{ 'task-item--checked': task.done }">
+    <base-checkbox
+      :label="`${task.title}`"
+      :id="`${noteId}_${task.id}`"
+      :model-value="task.done"
+      @update:model-value="() => $emit('toggle-task', task.id)"
     />
   </div>
 </template>
 
 <script setup lang="ts">
-import UiCheckbox from "@/components/ui/base-checkbox.vue";
-import useTaskStore from "@/stores/task-store";
-import type { ITaskItem } from "@/types/task";
+import BaseCheckbox from "@/components/ui/base-checkbox.vue";
+import type { ITaskItem } from "@/types";
 
 defineOptions({
   name: "task-item",
 });
 
 defineProps<{
-  taskItem: ITaskItem;
+  task: ITaskItem;
+  noteId: number;
 }>();
 
-const { toggleTaskItem } = useTaskStore();
+defineEmits<{
+  (e: "toggle-task", taskId: number): void;
+}>();
 </script>
 
 <style>
