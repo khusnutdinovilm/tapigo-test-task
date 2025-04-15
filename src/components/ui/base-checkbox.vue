@@ -1,7 +1,7 @@
 <template>
-  <label :for="id.toString()" class="base-checkbox">
+  <label :for="id" class="base-checkbox">
     <input
-      :id="id.toString()"
+      :id="id"
       type="checkbox"
       :checked="modelValue"
       @change="updateValue"
@@ -18,9 +18,9 @@ defineOptions({
 });
 
 defineProps<{
+  id: string;
   modelValue: boolean;
   label: string;
-  id: number;
 }>();
 
 const emit = defineEmits<{
@@ -36,7 +36,6 @@ const updateValue = (event: Event) => {
 <style>
 .base-checkbox {
   display: flex;
-  align-items: center;
   gap: 5px;
 }
 
