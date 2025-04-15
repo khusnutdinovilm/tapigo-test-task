@@ -1,36 +1,20 @@
 import { defineStore } from "pinia";
-import { ref } from "vue";
 
 import taskService from "@/services/task-service";
-import type { ITaskItem } from "@/types/task";
+import type { ITaskItem } from "@/types";
 
 const useTaskStore = defineStore("task-store", () => {
-  const taskList = ref<ITaskItem[]>([]);
-
-  const getTasksList = async () => {
-    taskList.value = await taskService.getTasksList();
+  const getTaskByNoteId = async (noteId: number): Promise<ITaskItem[]> => {
+    return await taskService.getTaskByNoteId(noteId);
   };
 
-  const toggleTaskItem = async (taskId: number) => {
-    const idx = taskList.value.findIndex(task => task.id === taskId);
-    if (idx === -1) return;
-
-    const oldTask = { ...taskList.value[idx] };
-    taskList.value[idx].done = !taskList.value[idx].done;
-    taskList.value = [...taskList.value];
-
-    try {
-      await taskService.updateTaskItem(taskId);
-    } catch (error) {
-      taskList.value[idx] = oldTask;
-      taskList.value = [...taskList.value];
-    }
+  const toggleTask = async (noteId: number, taskId: number) => {
+    await taskService.toggleTask(noteId, taskId);
   };
 
   return {
-    taskList,
-    getTasksList,
-    toggleTaskItem,
+    getTaskByNoteId,
+    toggleTask,
   };
 });
 
